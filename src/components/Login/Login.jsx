@@ -1,170 +1,102 @@
-import { ThemeProvider } from "@emotion/react";
-import {
-  Box,
-  Button,
-  Checkbox,
-  Container,
-  FormControlLabel,
-  Grid,
-  lighten,
-  Paper,
-  TextField,
-  Typography,
-} from "@mui/material";
-import { FaMoneyBillWave } from "react-icons/fa";
-import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { Box, Button, Checkbox, FormControlLabel, Grid, TextField, Typography } from '@mui/material';
+import Logo from '../Logo/Logo';
+import { Link } from 'react-router-dom';
 
 export default function Login(props) {
+
   return (
     <Grid
-      container
-      sx={{ height: "100vh", bgcolor: "primary", color: "primary.text" }}
-    >
+      container>
       <Box
         component={Grid}
         item
-        xs={false}
         sm={7}
-        display={{ xs: "none", md: "flex" }}
+        bgcolor='primary.main'
+        display={{ xs: 'none', md: 'flex' }}
         sx={{
-          bgcolor: "light.main",
-          color: "light.text",
-          alignItems: "center",
-          justifyContent: "flex-end",
-        }}
-      >
-        <Box /* LOGO COMPONENT TO REDUCE REDUNDANCY? */
-          sx={{
-            margin: "5%",
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-          }}
-        >
-          <FaMoneyBillWave size={80} />
-          <Typography
-            sx={{
-              fontSize: "80px",
-              fontWeight: 700,
-              fontStyle: "oblique",
-              letterSpacing: -2,
-              marginLeft: "5px",
-            }}
-          >
-            StudentCash
-          </Typography>
-        </Box>
+          alignItems: 'center',
+          justifyContent: 'flex-end',
+        }}>
+        <Logo size={80} margin={5} color={'white'}/>
       </Box>
-      <Grid item xs={12} md={5} component={Paper}>
+      <Grid item xs={12} md={5}>
         <Box
-          display="flex"
-          flexDirection="column"
-          alignItems="center"
-          justifyContent={{ sm: "center", md: "none" }}
-          marginTop={{ xs: "100px", sm: 0 }}
-          height="100vh"
-        >
+          display='flex'
+          flexDirection='column'
+          alignItems='center'
+          justifyContent='center'
+          height='100vh'>
           <Box
             sx={{
-              display: "grid",
+              display: 'grid',
               columnGap: 2,
               rowGap: 1,
-              padding: "10%",
-              width: "100%",
-            }}
-          >
-            <Box
-              component={Grid}
-              display={{ xs: "flex", md: "none" }}
-              sx={{
-                color: "light.main",
-                flexDirection: "row",
-                alignItems: "center",
-                justifySelf: "center",
-              }}
-            >
-              <FaMoneyBillWave size={60} />
-              <Typography
-                sx={{
-                  fontSize: "50px", // NEED TO FIX THIS CROPPING WHEN AT MIN WIDTH
-                  fontWeight: 700,
-                  fontStyle: "oblique",
-                  letterSpacing: -2,
-                  marginLeft: "5px",
-                }}
-              >
-                StudentCash
-              </Typography>
-            </Box>
+              padding: '5%',
+              width: '90%',
+            }}>
+            <Box display={{md:'none'}}><Logo size={55} color={'green'}/></Box>
             <Typography
-              variant="h6"
+              variant='h6'
               fontWeight={500}
-              display={{ xs: "none", sm: "block" }}
-            >
+              display={{ 
+                xs: 'none', 
+                sm: 'block',
+              }}>
               Log In
             </Typography>
             <TextField
-              variant="outlined"
-              name="Email"
-              autoComplete="email"
-              label="Email"
-              color="primary"
-              margin="dense"
+              variant='outlined'
+              name='Email'
+              autoComplete='email'
+              label='Email'
+              margin='dense'
               fullWidth
             />
             <TextField
-              variant="outlined"
-              name="Password"
-              autoComplete="password"
-              label="Password"
-              color="primary"
-              type="password"
+              variant='outlined'
+              name='Password'
+              autoComplete='password'
+              label='Password'
+              type='password'
               fullWidth
             />
             <FormControlLabel
-              label="Remember Me"
-              control={<Checkbox color="primary" />}
+              label='Remember Me'
+              control={<Checkbox />}
             />
             <Button
-              variant="contained"
-              bgcolor={"primary"}
-              fullWidth
-              sx={{
-                "&.MuiButton-contained": {
-                  color: "#ffffff",
-                },
-              }}
-            >
+              variant='contained'
+              fontWeight='500'
+              fullWidth>
               Log In
             </Button>
             <Box
               sx={{
-                display: "flex",
-                justifyContent: "space-between",
+                display: 'flex',
+                justifyContent: 'space-between',
               }}
             >
               <Typography
-                display="block"
+                display='block'
                 sx={{
-                  fontFamily: "Roboto, sans-serif",
-                  fontSize: "14px",
+                  fontFamily: 'Roboto, sans-serif',
+                  fontSize: '14px',
                   fontWeight: 500,
-                  textTransform: "uppercase",
-                  textAlign: "left",
-                  marginRight: "10px",
+                  textTransform: 'uppercase',
+                  textAlign: 'left',
+                  marginRight: '10px',
                 }}
               >
-                Don't have an account? <a href="#">Sign Up</a>
+                Don't have an account? <Link to='/register'>Sign Up</Link>
               </Typography>
 
               <Typography
                 sx={{
-                  fontFamily: "Roboto, sans-serif",
-                  fontSize: "14px",
+                  fontFamily: 'Roboto, sans-serif',
+                  fontSize: '14px',
                   fontWeight: 500,
-                  textTransform: "uppercase",
-                  textAlign: "right",
+                  textTransform: 'uppercase',
+                  textAlign: 'right',
                 }}
               >
                 Forgot Password
