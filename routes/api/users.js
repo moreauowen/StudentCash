@@ -1,4 +1,3 @@
-// DEFINE LOGIN / LOGOUT POG CONTENT AND REGISTER
 const express = require('express');
 const router = express.Router();
 const User = require('../../models/userSchema.js');
@@ -19,19 +18,14 @@ router.post('/login', (req, res) => {
     const userFilter = { email: req.body.email};
     const password = req.body.password;
 
-    let res_errors = {};
+    let error = {};
 
     User.findOne(userFilter).then(user => {
         if (!user) {
-            res_errors.email = `Email ${userFilter.email} not found`;
-            res.status(404).json(res_errors);
+            error.msg = `Email not found`;
+            res.status(404).json(error);
             return;
         }
-        // } else if (user && !user.confirmed) {
-        //     res_errors.email = `User with ${userFilter.email} must be confirmed, check email`;
-        //     res.status(403).json(res_errors);
-        //     return;
-        // }
 
         // Check password
         bcrypt.compare(password, user.password).then(isMatch => {
@@ -55,8 +49,8 @@ router.post('/login', (req, res) => {
                 );
                 
             } else {
-                res_errors.passwordincorrect = `Password incorrect`;
-                res.status(400).json(res_errors);
+                error.msg = `Password incorrect`;
+                res.status(400).json(error);
                 return;
             }
         });
@@ -75,44 +69,21 @@ router.post('/register', async (req, res) => {
 
     // Define filters to query database
     const userEmailFilter = { email: req.body.email };
-    const usernameFilter = { username: req.body.username };
 
-    let res_errors = {};
+    let error = {};
     
     try {
         const user = await User.findOne(userEmailFilter);
-        if (user && !user.confirmed) {
-            res_errors.email = msgs.confirm;
-            res.status(400).json(res_errors);
-            return;
-
-        } else if (user && user.confirmed) {
-            res_errors.email = msgs.alreadyConfirmed;
-            res.status(400).json(res_errors);
+        if (user) {
+            error.msg = `User with this email already exists.`;
+            res.status(400).json(error);
             return;
         }
 
-        const user2 = await User.findOne(usernameFilter);
-        if (user2) {
-            res_errors.username = `Username ${user2.username} already exists - must be unique`;
-            res.status(400).json(res_errors);
-            return;
-        }
-
-        var newUser;
-
-        // This makes the User document already confirmed if in development (doesn't send email)
-        if(process.env.NODE_ENV === 'development'){
-            newUser = new User({
-                password: req.body.password,
-                email: req.body.email
-            });
-        } else {
-            newUser = new User({
-                password: req.body.password,
-                email: req.body.email
-            });
-        }
+        const newUser = new User({
+            password: req.body.password,
+            email: req.body.email
+        });
 
         // Hash password before storing in database
         const rounds = 10;
@@ -127,17 +98,16 @@ router.post('/register', async (req, res) => {
                     })
                     .catch(err => {
                         console.log(err);
-                        res_errors.username = `Username cannot contain spaces, underscores, or other special characters`;
-                        res.status(400).json(res_errors);
+                        error.msg = `Username cannot contain spaces, underscores, or other special characters`;
+                        res.status(400).json(error);
                         return;
                     });
             });
         });
 
     } catch(error) {
-        console.log(error);
-        res_errors.badrequest = `Error when registering user, email contact@rosters.gg`;
-        res.status(400).json(res_errors);
+        error.msg = `Error when registering user`;
+        res.status(400).json(error);
     }
 });
 
