@@ -1,18 +1,16 @@
+import React from 'react';
 import {
   Typography,
   Box,
   Container,
   Grid,
-  Paper,
   TextField,
   Button,
-  FormControl,
   Checkbox,
 } from "@mui/material";
-import { Link } from "react-router-dom";
 import { FaMoneyBillWave } from "react-icons/fa";
 
-export default function Register(props) {
+const Register = () => {
   return (
     <Grid
       display="flex"
@@ -92,3 +90,5 @@ export default function Register(props) {
     </Grid>
   );
 }
+
+export default Register;

@@ -1,21 +1,17 @@
-import { ThemeProvider } from "@emotion/react";
+import React from 'react';
 import {
   Box,
   Button,
   Checkbox,
-  Container,
   FormControlLabel,
   Grid,
-  lighten,
   Paper,
   TextField,
   Typography,
 } from "@mui/material";
 import { FaMoneyBillWave } from "react-icons/fa";
-import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
 
-export default function Login(props) {
+const Login = () => {
   return (
     <Grid
       container
@@ -176,3 +172,5 @@ export default function Login(props) {
     </Grid>
   );
 }
+
+export default Login;
