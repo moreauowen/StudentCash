@@ -1,5 +1,4 @@
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { useState } from "react";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import lightTheme from './lightTheme';
 import Register from "./components/Register/Register";
@@ -10,9 +9,9 @@ import Homepage from "./components/Homepage/Homepage";
 
 function App() {
 
-  const [lightMode, setLightMode] = useState(true);
+  // const [lightMode, setLightMode] = useState(true);
   
-  const theme = lightMode ? createTheme(lightTheme) : createTheme(lightTheme);
+  const theme = (true) ? createTheme(lightTheme) : createTheme(lightTheme);
 
   return (
     <ThemeProvider theme={theme}>

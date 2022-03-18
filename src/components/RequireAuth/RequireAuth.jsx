@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
-import { Navigate } from 'react-router-dom';
+// import { useState } from 'react';
+// import { Navigate } from 'react-router-dom';
 
-export default function RequireAuth(props) {
+// export default function RequireAuth(props) {
 
-    const [isAuth, setIsAuth] = useState(false);
+//     const [isAuth, setIsAuth] = useState(false);
 
     // useEffect(() => {
     //   axios.get('/is-auth')
@@ -12,8 +12,8 @@ export default function RequireAuth(props) {
     //     })
     // }, [])
     
-    return (isAuth ? 
-      (props.children) 
-      :
-      (<Navigate to="/login" replace />))
-}
+//     return (isAuth ? 
+//       (props.children) 
+//       :
+//       (<Navigate to="/login" replace />))
+// }

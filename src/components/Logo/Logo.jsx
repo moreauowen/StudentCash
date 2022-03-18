@@ -1,4 +1,4 @@
-import { Box, Typography, ThemeProvider } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { FaMoneyBillWave } from 'react-icons/fa';
 
 export default function Logo({margin, size, color}) {

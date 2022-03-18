@@ -1,8 +1,35 @@
+import axios from 'axios';
 import { Box, Button, Checkbox, FormControlLabel, Grid, TextField, Typography } from '@mui/material';
 import Logo from '../Logo/Logo';
 import { Link } from 'react-router-dom';
 
-export default function Login(props) {
+const LOGIN_ENDPOINT = 'http://localhost:5001/api/users/login';
+
+const Login = () => {
+
+  const handleLoginOnClick = e => {
+    e.preventDefault();
+    const data = new FormData(e.currentTarget);
+    const emailField = data.get("Email");
+    const passwordField = data.get("Password");
+    const loginData = {
+      email: emailField, 
+      password: passwordField,
+    };
+
+    // Post login and wait for response
+    axios.post(LOGIN_ENDPOINT, loginData)
+      .then(res => {
+        console.log(res);
+        alert("Success, you are now logged in.");
+      })
+      .catch(err => {
+        console.log(err.response);
+        alert(err.response.data.msg);
+      });
+
+    console.log('done logging in');
+  };
 
   return (
     <Grid
@@ -35,61 +62,66 @@ export default function Login(props) {
               width: '90%',
             }}>
             <Box display={{md:'none'}}><Logo size={55} color={'green'}/></Box>
-            <Typography
-              variant='h6'
-              fontWeight={500}
-              display={{ 
-                xs: 'none', 
-                sm: 'block',
-              }}>
-              Log In
-            </Typography>
-            <TextField
-              variant='outlined'
-              name='Email'
-              autoComplete='email'
-              label='Email'
-              margin='dense'
-              fullWidth
-            />
-            <TextField
-              variant='outlined'
-              name='Password'
-              autoComplete='password'
-              label='Password'
-              type='password'
-              fullWidth
-            />
-            <FormControlLabel
-              label='Remember Me'
-              control={<Checkbox />}
-            />
-            <Button
-              variant='contained'
-              fontWeight='500'
-              fullWidth>
-              Log In
-            </Button>
+            <Box component="form" onSubmit={handleLoginOnClick}>
+              <Typography
+                variant='h6'
+                fontWeight={500}
+                display={{ 
+                  xs: 'none', 
+                  sm: 'block',
+                }}>
+                Log In
+              </Typography>
+              <TextField
+                variant='outlined'
+                name='Email'
+                autoComplete='email'
+                label='Email'
+                margin='dense'
+                fullWidth
+              />
+              <TextField
+                variant='outlined'
+                name='Password'
+                autoComplete='password'
+                label='Password'
+                type='password'
+                fullWidth
+              />
+              <FormControlLabel
+                label='Remember Me'
+                control={<Checkbox />}
+              />
+              <Button
+                variant='contained'
+                fontWeight='500'
+                fullWidth
+                type="submit"
+              >
+                Log In
+              </Button>
+            </Box>
             <Box
               sx={{
                 display: 'flex',
                 justifyContent: 'space-between',
               }}
             >
-              <Typography
-                display='block'
-                sx={{
-                  fontFamily: 'Roboto, sans-serif',
-                  fontSize: '14px',
-                  fontWeight: 500,
-                  textTransform: 'uppercase',
-                  textAlign: 'left',
-                  marginRight: '10px',
-                }}
-              >
-                Don't have an account? <Link to='/register'>Sign Up</Link>
-              </Typography>
-
+              <Grid item>
+                <Typography
+                  display='block'
+                  sx={{
+                    fontFamily: 'Roboto, sans-serif',
+                    fontSize: '14px',
+                    fontWeight: 500,
+                    textTransform: 'uppercase',
+                    textAlign: 'left',
+                    marginRight: '10px',
+                  }}
+                >
+                  Don't have an account? <Link to='/register'>Sign Up</Link>
+                </Typography>
+              </Grid>
               <Typography
                 sx={{
                   fontFamily: 'Roboto, sans-serif',
@@ -108,3 +140,5 @@ export default function Login(props) {
     </Grid>
   );
 }
+
+export default Login;
