@@ -1,3 +1,5 @@
+import React from 'react';
+import axios from 'axios';
 import {
   Typography,
   Box,
@@ -8,11 +10,36 @@ import {
   Checkbox,
 } from "@mui/material";
 import Logo from "../Logo/Logo";
-
-export default function Register(props) {
-
   //TODO:
   //Mobile layout needs to be messed around with
+
+const REGISTER_ENDPOINT = 'http://localhost:5001/api/users/register';
+
+const Register = () => {
+
+  const handleRegisterOnClick = e => {
+    e.preventDefault();
+    const data = new FormData(e.currentTarget);
+    const emailField = data.get("Email");
+    const passwordField = data.get("Password");
+    const registerData = {
+      email: emailField, 
+      password: passwordField,
+    };
+
+    // Post register and wait for response
+    axios.post(REGISTER_ENDPOINT, registerData)
+      .then(res => {
+        console.log(res);
+        alert("Success, please try to login with the credentials.");
+      })
+      .catch(err => {
+        console.log(err.repsonse);
+        alert(err.response.data.msg);
+      });
+  <Link to='/login' />
+    console.log('done registering in');
+  };
 
   return (
     <Grid
@@ -34,13 +61,14 @@ export default function Register(props) {
           padding: "16px",
         }}
       >
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <Typography variant="h6">Register</Typography>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField fullWidth label="First Name" required />
-          </Grid>
+        <Box component="form" onSubmit={handleRegisterOnClick}>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <Typography variant="h6">Register</Typography>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField fullWidth label="First Name" required />
+            </Grid>
           <Grid item xs={12} sm={6}>
             <TextField fullWidth label="Last Name" required />
           </Grid>
@@ -61,7 +89,7 @@ export default function Register(props) {
                   }}>
                   I agree to the <a href="#">Terms and Conditions</a> and <a href="#">Privacy Policy</a>
                 </Typography>
-              </Box>
+             </Box>
           </Grid>
           <Grid item xs={12}>
             <Button variant="contained" fullWidth>
@@ -69,7 +97,10 @@ export default function Register(props) {
             </Button>
           </Grid>
         </Grid>
+        </Box>
       </Container>
     </Grid>
   );
 }
+
+export default Register;
