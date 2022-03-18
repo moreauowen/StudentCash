@@ -2,6 +2,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import lightTheme from './lightTheme';
 import Register from "./components/Register/Register";
+
 import Login from "./components/Login/Login";
 import RequireAuth from "./components/RequireAuth/RequireAuth";
 import Dashboard from "./components/Dashboard/Dashboard";

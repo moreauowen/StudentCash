@@ -1,5 +1,15 @@
+import React from 'react';
+import {
+  Box,
+  Button,
+  Checkbox,
+  FormControlLabel,
+  Grid,
+  Paper,
+  TextField,
+  Typography,
+} from "@mui/material";
 import axios from 'axios';
-import { Box, Button, Checkbox, FormControlLabel, Grid, TextField, Typography } from '@mui/material';
 import Logo from '../Logo/Logo';
 import { Link } from 'react-router-dom';
 
@@ -62,7 +72,10 @@ const Login = () => {
               width: '90%',
             }}>
             <Box display={{md:'none'}}><Logo size={55} color={'green'}/></Box>
-            <Box component="form" onSubmit={handleLoginOnClick}>
+            <Box
+              component="form"
+              onSubmit={handleLoginOnClick}
+            >
               <Typography
                 variant='h6'
                 fontWeight={500}

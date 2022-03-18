@@ -1,3 +1,4 @@
+import React from 'react';
 import axios from 'axios';
 import {
   Typography,
@@ -10,6 +11,8 @@ import {
 } from "@mui/material";
 import { Link } from 'react-router-dom';
 import Logo from "../Logo/Logo";
+  //TODO:
+  //Mobile layout needs to be messed around with
 
 const REGISTER_ENDPOINT = 'http://localhost:5001/api/users/register';
 
@@ -35,7 +38,7 @@ const Register = () => {
         console.log(err.repsonse);
         alert(err.response.data.msg);
       });
-
+  <Link to='/login' />
     console.log('done registering in');
   };
 
