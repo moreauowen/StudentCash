@@ -1,12 +1,16 @@
 require('dotenv').config();
 const express = require('express');
-const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-// const passport = require('passport');
+const passport = require('passport');
+const session = require("express-session");
+const cookieParser = require("cookie-parser");
 const path = require('path');
 const cors = require('cors');
 
-const users = require('./routes/api/users'); // UPDATE THIS
+const mongoose = require('mongoose');
+const MongoStore = require("connect-mongo");
+
+const users = require('./routes/api/users');
 const app = express();
 
 console.log('----- [SERVER] -----');
@@ -23,9 +27,28 @@ app.use(
 app.use(bodyParser.json());
 app.use(cors());
 
+// Passport middleware
+// Utilizes MongoDB for session storage
+const cookieLife = 1000 * 60 * 60 * 24;
+app.use(
+    session({
+      secret: process.env.APP_SECRET,
+      saveUninitialized: true,
+      resave: false,
+      store: MongoStore.create({
+        mongoUrl: process.env.DB_URL,
+        ttl: cookieLife,
+        autoRemove: 'native',
+        crypto: {
+          secret: process.env.APP_SECRET,
+        },
+      }),
+    })
+  );
+
 
 // Connect to MongoDB
-const mongodb_conn = process.env.MONGODB_URI || process.env.DBURI; // UPDATE THIS
+const mongodb_conn = process.env.MONGODB_URI || process.env.DB_URL; // UPDATE THIS
 mongoose
     .connect(mongodb_conn, { useUnifiedTopology: true, useNewUrlParser: true })
     .then(() => console.log(`[SERVER] MongoDB successfully connected [${mongodb_conn}]`))
@@ -37,8 +60,10 @@ mongoose
 
 
 // Passport middleware
-// app.use(passport.initialize());
-// require('./config/passport')(passport);
+app.use(cookieParser(process.env.APP_SECRET));
+app.use(passport.initialize());
+app.use(passport.session());
+require('./config/passport')(passport);
 
 
 // Routes Configuration
