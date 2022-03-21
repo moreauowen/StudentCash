@@ -1,6 +1,6 @@
 
 import { createTheme } from '@mui/material/styles';
-import Register from "./components/Register/Register";
+// import Register from "./components/Register/Register";
 import Login from "./components/Login/Login";
 import { ThemeProvider } from '@emotion/react';
 import "typeface-roboto";

@@ -1,21 +1,45 @@
-import { ThemeProvider } from "@emotion/react";
+import React from 'react';
 import {
   Box,
   Button,
   Checkbox,
-  Container,
   FormControlLabel,
   Grid,
-  lighten,
   Paper,
   TextField,
   Typography,
 } from "@mui/material";
+import axios from 'axios';
 import { FaMoneyBillWave } from "react-icons/fa";
-import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
 
-export default function Login(props) {
+const LOGIN_ENDPOINT = 'http://localhost:5001/api/users/login';
+
+const Login = () => {
+
+  const handleLoginOnClick = e => {
+    e.preventDefault();
+    const data = new FormData(e.currentTarget);
+    const emailField = data.get("Email");
+    const passwordField = data.get("Password");
+    const loginData = {
+      email: emailField, 
+      password: passwordField,
+    };
+
+    // Post login and wait for response
+    axios.post(LOGIN_ENDPOINT, loginData)
+      .then(res => {
+        console.log(res);
+        alert("Success, you are now logged in.");
+      })
+      .catch(err => {
+        console.log(err.response);
+        alert(err.response.data.msg);
+      });
+
+    console.log('done logging in');
+  };
+
   return (
     <Grid
       container
@@ -97,47 +121,53 @@ export default function Login(props) {
                 StudentCash
               </Typography>
             </Box>
-            <Typography
-              variant="h6"
-              fontWeight={500}
-              display={{ xs: "none", sm: "block" }}
+            <Box
+              component="form"
+              onSubmit={handleLoginOnClick}
             >
-              Log In
-            </Typography>
-            <TextField
-              variant="outlined"
-              name="Email"
-              autoComplete="email"
-              label="Email"
-              color="primary"
-              margin="dense"
-              fullWidth
-            />
-            <TextField
-              variant="outlined"
-              name="Password"
-              autoComplete="password"
-              label="Password"
-              color="primary"
-              type="password"
-              fullWidth
-            />
-            <FormControlLabel
-              label="Remember Me"
-              control={<Checkbox color="primary" />}
-            />
-            <Button
-              variant="contained"
-              bgcolor={"primary"}
-              fullWidth
-              sx={{
-                "&.MuiButton-contained": {
-                  color: "#ffffff",
-                },
-              }}
-            >
-              Log In
-            </Button>
+              <Typography
+                variant="h6"
+                fontWeight={500}
+                display={{ xs: "none", sm: "block" }}
+              >
+                Log In
+              </Typography>
+              <TextField
+                variant="outlined"
+                name="Email"
+                autoComplete="email"
+                label="Email"
+                color="primary"
+                margin="dense"
+                fullWidth
+              />
+              <TextField
+                variant="outlined"
+                name="Password"
+                autoComplete="password"
+                label="Password"
+                color="primary"
+                type="password"
+                fullWidth
+              />
+              <FormControlLabel
+                label="Remember Me"
+                control={<Checkbox color="primary" />}
+              />
+              <Button
+                type="submit"
+                variant="contained"
+                bgcolor={"primary"}
+                fullWidth
+                sx={{
+                  "&.MuiButton-contained": {
+                    color: "#ffffff",
+                  },
+                }}
+              >
+                Log In
+              </Button>
+            </Box>
             <Box
               sx={{
                 display: "flex",
@@ -176,3 +206,5 @@ export default function Login(props) {
     </Grid>
   );
 }
+
+export default Login;

@@ -1,18 +1,44 @@
+import React from 'react';
+import axios from 'axios';
 import {
   Typography,
   Box,
   Container,
   Grid,
-  Paper,
   TextField,
   Button,
-  FormControl,
   Checkbox,
 } from "@mui/material";
-import { Link } from "react-router-dom";
 import { FaMoneyBillWave } from "react-icons/fa";
 
-export default function Register(props) {
+const REGISTER_ENDPOINT = 'http://localhost:5001/api/users/register';
+
+const Register = () => {
+
+  const handleRegisterOnClick = e => {
+    e.preventDefault();
+    const data = new FormData(e.currentTarget);
+    const emailField = data.get("Email");
+    const passwordField = data.get("Password");
+    const registerData = {
+      email: emailField, 
+      password: passwordField,
+    };
+
+    // Post register and wait for response
+    axios.post(REGISTER_ENDPOINT, registerData)
+      .then(res => {
+        console.log(res);
+        alert("Success, please try to login with the credentials.");
+      })
+      .catch(err => {
+        console.log(err.repsonse);
+        alert(err.response.data.msg);
+      });
+
+    console.log('done registering in');
+  };
+
   return (
     <Grid
       display="flex"
@@ -55,40 +81,44 @@ export default function Register(props) {
           padding: "16px",
         }}
       >
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <Typography variant="h6">Register</Typography>
+        <Box component="form" onSubmit={handleRegisterOnClick}>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <Typography variant="h6">Register</Typography>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField fullWidth label="First Name" required />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField fullWidth label="Last Name" required />
+            </Grid>
+            <Grid item xs={12} sm={12}>
+              <TextField fullWidth name="Email" label="Email" type="email" required />
+            </Grid>
+            <Grid item xs={12} sm={12}>
+              <TextField fullWidth name="Password" label="Password" type="password" required />
+              <Box display="flex" flexDirection="row" alignItems="center">
+                <Checkbox size="small" />
+                <Typography
+                  sx={{
+                    fontSize: "12px",
+                  }}
+                >
+                  I agree to the <a href="#">Terms and Conditions</a> and{" "}
+                  <a href="#">Privacy Policy</a>
+                </Typography>
+              </Box>
+            </Grid>
+            <Grid item xs={12}>
+              <Button type="submit" variant="contained" fullWidth>
+                Sign Up
+              </Button>
+            </Grid>
           </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField fullWidth label="First Name" required />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField fullWidth label="Last Name" required />
-          </Grid>
-          <Grid item xs={12} sm={12}>
-            <TextField fullWidth label="Email" type="email" required />
-          </Grid>
-          <Grid item xs={12} sm={12}>
-            <TextField fullWidth label="Password" type="password" required />
-            <Box display="flex" flexDirection="row" alignItems="center">
-              <Checkbox size="small" />
-              <Typography
-                sx={{
-                  fontSize: "12px",
-                }}
-              >
-                I agree to the <a href="#">Terms and Conditions</a> and{" "}
-                <a href="#">Privacy Policy</a>
-              </Typography>
-            </Box>
-          </Grid>
-          <Grid item xs={12}>
-            <Button variant="contained" fullWidth>
-              Sign Up
-            </Button>
-          </Grid>
-        </Grid>
+        </Box>
       </Container>
     </Grid>
   );
 }
+
+export default Register;
