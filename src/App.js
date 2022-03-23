@@ -8,7 +8,7 @@ import RequireAuth from "./components/RequireAuth/RequireAuth";
 import Dashboard from "./components/Dashboard/Dashboard";
 import Homepage from "./components/Homepage/Homepage";
 
-function App() {
+const App = () => {
 
   // const [lightMode, setLightMode] = useState(true);
   
@@ -21,9 +21,9 @@ function App() {
           <Route path='/' element={<Homepage />} />
             <Route path='login' element={<Login />} />
             <Route path='register' element={<Register />} />
-            <Route path='dash' element={<RequireAuth>
+            <Route path='dash' element={
                                           <Dashboard />
-                                        </RequireAuth>} />
+                                        } />
             {/* <Route path='overview' element={<Overview /> } />
             <Route path='budget' element={<Budget /> } />
             <Route path='reports' element={<Reports /> } /> */}

@@ -12,10 +12,13 @@ import {
 import axios from 'axios';
 import Logo from '../Logo/Logo';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const LOGIN_ENDPOINT = 'http://localhost:5001/api/users/login';
 
 const Login = () => {
+
+  const navigate = useNavigate()
 
   const handleLoginOnClick = e => {
     e.preventDefault();
@@ -31,7 +34,7 @@ const Login = () => {
     axios.post(LOGIN_ENDPOINT, loginData)
       .then(res => {
         console.log(res);
-        alert("Success, you are now logged in.");
+        navigate('/dash', {replace: true})
       })
       .catch(err => {
         console.log(err.response);
@@ -54,7 +57,7 @@ const Login = () => {
           alignItems: 'center',
           justifyContent: 'flex-end',
         }}>
-        <Logo size={80} margin={5} color={'white'}/>
+        <Logo size={80} marginX={5} color={'white'}/>
       </Box>
       <Grid item xs={12} md={5}>
         <Box
