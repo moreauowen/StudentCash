@@ -34,7 +34,8 @@ const Login = () => {
     axios.post(LOGIN_ENDPOINT, loginData)
       .then(res => {
         console.log(res);
-        navigate('/dash', {replace: true})
+        if (res.data.valid) navigate('/dash', {replace: true})
+        else alert(res.message)
       })
       .catch(err => {
         console.log(err.response);
