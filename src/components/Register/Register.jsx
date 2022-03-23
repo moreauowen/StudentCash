@@ -9,7 +9,10 @@ import {
   Button,
   Checkbox,
 } from "@mui/material";
-import { FaMoneyBillWave } from "react-icons/fa";
+import { Link } from 'react-router-dom';
+import Logo from "../Logo/Logo";
+  //TODO:
+  //Mobile layout needs to be messed around with
 
 const REGISTER_ENDPOINT = 'http://localhost:5001/api/users/register';
 
@@ -35,7 +38,7 @@ const Register = () => {
         console.log(err.repsonse);
         alert(err.response.data.msg);
       });
-
+  <Link to='/login' />
     console.log('done registering in');
   };
 
@@ -45,37 +48,15 @@ const Register = () => {
       flexDirection="column"
       alignItems="center"
       justifyContent="center"
-      bgcolor={{ xs: "primary.bg", sm: "primary.main" }}
+      bgcolor='primary.main'
       sx={{
         height: "100vh",
-      }}
-    >
-      <Box
-        component={Grid}
-        color={{ xs: "light.main", sm: "primary.contrastText" }}
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-        }}
-      >
-        <FaMoneyBillWave size={60} />
-        <Typography
-          sx={{
-            fontSize: "60px",
-            fontWeight: 700,
-            fontStyle: "oblique",
-            letterSpacing: -2,
-            marginLeft: "5px",
-          }}
-        >
-          StudentCash
-        </Typography>
-      </Box>
+      }}>
+      <Logo size={55} color={'white'}/>
       <Container
         maxWidth="xs"
         sx={{
-          bgcolor: "primary.bg",
+          bgcolor: "primary.light",
           minHeight: "fit-content",
           borderRadius: "8px",
           padding: "16px",
@@ -97,22 +78,41 @@ const Register = () => {
             </Grid>
             <Grid item xs={12} sm={12}>
               <TextField fullWidth name="Password" label="Password" type="password" required />
+            </Grid>
+          </Grid>
+          <Grid container spacing={0}>
+            <Grid item xs={12}>
               <Box display="flex" flexDirection="row" alignItems="center">
-                <Checkbox size="small" />
-                <Typography
-                  sx={{
-                    fontSize: "12px",
-                  }}
-                >
-                  I agree to the <a href="#">Terms and Conditions</a> and{" "}
-                  <a href="#">Privacy Policy</a>
-                </Typography>
-              </Box>
+                  <Checkbox size="small" />
+                  <Typography
+                    sx={{
+                      fontSize: "12px",
+                    }}>
+                    I agree to the Terms and Conditions and Privacy Policy
+                  </Typography>
+                </Box>
             </Grid>
             <Grid item xs={12}>
-              <Button type="submit" variant="contained" fullWidth>
+              <Button 
+                type="submit"
+                variant="contained" 
+                fullWidth
+              >
                 Sign Up
               </Button>
+              <Typography
+                display='block'
+                sx={{
+                  fontFamily: 'Roboto, sans-serif',
+                  fontSize: '14px',
+                  fontWeight: 500,
+                  textTransform: 'uppercase',
+                  textAlign: 'left',
+                  marginRight: '10px',
+                }}
+              >
+                Already have an account? <Link to='/login'>Login</Link>
+              </Typography>
             </Grid>
           </Grid>
         </Box>
