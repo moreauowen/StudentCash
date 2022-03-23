@@ -36,7 +36,7 @@ app.use(
       saveUninitialized: true,
       resave: false,
       store: MongoStore.create({
-        mongoUrl: process.env.DB_URL,
+        mongoUrl: process.env.DBURI,
         ttl: cookieLife,
         autoRemove: 'native',
         crypto: {
@@ -48,7 +48,7 @@ app.use(
 
 
 // Connect to MongoDB
-const mongodb_conn = process.env.MONGODB_URI || process.env.DB_URL; // UPDATE THIS
+const mongodb_conn = process.env.MONGODB_URI || process.env.DBURI; // UPDATE THIS
 mongoose
     .connect(mongodb_conn, { useUnifiedTopology: true, useNewUrlParser: true })
     .then(() => console.log(`[SERVER] MongoDB successfully connected [${mongodb_conn}]`))
