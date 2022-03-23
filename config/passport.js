@@ -9,7 +9,7 @@ module.exports = function (passport) {
         usernameField: "email",
         passwordField: "password",
       },
-      function (username, password, done) {
+      (username, password, done) => {
         User.findOne({ email: username }, (err, user) => {
           if (err) throw err;
           if (!user) return done(null, false);

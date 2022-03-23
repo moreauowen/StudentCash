@@ -12,7 +12,7 @@ import {
 import axios from 'axios';
 import { FaMoneyBillWave } from "react-icons/fa";
 
-const LOGIN_ENDPOINT = 'http://localhost:5001/api/users/login';
+const LOGIN_ENDPOINT = 'http://localhost:5000/api/users/login';
 
 const Login = () => {
 
