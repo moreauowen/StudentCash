@@ -1,44 +1,35 @@
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import lightTheme from './lightTheme';
+import Register from "./components/Register/Register";
 
-import { createTheme } from '@mui/material/styles';
-// import Register from "./components/Register/Register";
 import Login from "./components/Login/Login";
-import { ThemeProvider } from '@emotion/react';
-import "typeface-roboto";
-import { CssBaseline } from '@mui/material';
+import RequireAuth from "./components/RequireAuth/RequireAuth";
+import Dashboard from "./components/Dashboard/Dashboard";
+import Homepage from "./components/Homepage/Homepage";
 
-function App() {
+const App = () => {
 
-  const theme = createTheme({
-    palette: {
-      primary: {
-        main: '#119822',
-        contrastText: '#fafafa',
-        bg: '#fdfdfd',
-      },
-      light: {
-        main: '#119822',
-        text: '#fdfdfd'
-      }
-    },
-    typography: {
-      fontFamily: 'Roboto, sans-serif',
-    },
-    components: {
-      MuiCssBaseline: {
-        styleOverrides: `
-        @font-face {
-          font-family: 'Roboto, sans-serif';
-          font-weight: '400'
-        }`
-      }
-    }
-  });
+  // const [lightMode, setLightMode] = useState(true);
+  
+  const theme = (true) ? createTheme(lightTheme) : createTheme(lightTheme);
 
   return (
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Login />
-      </ThemeProvider>
+    <ThemeProvider theme={theme}>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Homepage />} />
+            <Route path='login' element={<Login />} />
+            <Route path='register' element={<Register />} />
+            <Route path='dash' element={
+                                          <Dashboard />
+                                        } />
+            {/* <Route path='overview' element={<Overview /> } />
+            <Route path='budget' element={<Budget /> } />
+            <Route path='reports' element={<Reports /> } /> */}
+        </Routes>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
 
