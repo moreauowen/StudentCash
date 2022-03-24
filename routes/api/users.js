@@ -9,11 +9,11 @@ const passport = require("passport");
 // @desc Login user and verify using passport
 router.post("/login", (req, res, next) => {
     passport.authenticate("local", (err, user) => {
-      if (err) res.status(404).json({message:err, valid: false});
-      if (!user) res.status(404).json({message:"No user found.", valid: false});
+      if (err) res.status(404).json({message: err, valid: false});
+      if (!user) res.status(404).json({message: "Please check email and password and try again.", valid: false});
       else {
         req.login(user, (err) => {
-          if (err) res.status(404).json({message:err, valid: false})
+          if (err) res.status(404).json({message: err, valid: false})
           res.status(200).json({ message: "Successfully logged in.", valid: true });
         });
       }
