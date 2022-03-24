@@ -14,7 +14,7 @@ import Logo from '../Logo/Logo';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
-const LOGIN_ENDPOINT = 'http://localhost:5001/api/users/login';
+const LOGIN_ENDPOINT = 'http://localhost:5000/api/users/login';
 
 const Login = () => {
 
@@ -34,7 +34,8 @@ const Login = () => {
     axios.post(LOGIN_ENDPOINT, loginData)
       .then(res => {
         console.log(res);
-        navigate('/dash', {replace: true})
+        if (res.data.valid) navigate('/dash', {replace: true})
+        else alert(res.message)
       })
       .catch(err => {
         console.log(err.response);

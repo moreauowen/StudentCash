@@ -14,7 +14,7 @@ import Logo from "../Logo/Logo";
   //TODO:
   //Mobile layout needs to be messed around with
 
-const REGISTER_ENDPOINT = 'http://localhost:5001/api/users/register';
+const REGISTER_ENDPOINT = 'http://localhost:5000/api/users/register';
 
 const Register = () => {
 
