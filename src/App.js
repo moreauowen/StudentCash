@@ -5,8 +5,9 @@ import Register from "./components/Register/Register";
 
 import Login from "./components/Login/Login";
 import RequireAuth from "./components/RequireAuth/RequireAuth";
-import Dashboard from "./components/Dashboard/Dashboard";
+import { Dashboard } from "./components/Dashboard/Dashboard";
 import Homepage from "./components/Homepage/Homepage";
+import Account from './components/Account/Account';
 
 const App = () => {
 
@@ -24,6 +25,7 @@ const App = () => {
             <Route path='dash' element={
                                           <Dashboard />
                                         } />
+            <Route path='account' element={<Account />} />
             {/* <Route path='overview' element={<Overview /> } />
             <Route path='budget' element={<Budget /> } />
             <Route path='reports' element={<Reports /> } /> */}
