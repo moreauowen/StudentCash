@@ -14,7 +14,7 @@ import { MdSpaceDashboard, MdAttachMoney } from "react-icons/md";
 import { IoDocumentsSharp } from "react-icons/io5";
 import Logo from "../Logo/Logo";
 
-const Dashboard = () => {
+export const Dashboard = () => {
   const sidebarWidth = 300;
   const logoSize = (sidebarWidth / 6.4) * 0.8; //I want this gone
 
@@ -89,5 +89,3 @@ const Dashboard = () => {
     </Box>
   );
 };
-
-export default Dashboard;
