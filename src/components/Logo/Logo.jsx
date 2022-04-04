@@ -14,9 +14,9 @@ export default function Logo({marginX = 0, marginY = 0, size, color = 'white'}) 
 
     return(
         <Box
+            marginX={marginX}
+            marginY={marginY}
             sx={{
-                marginY: `${marginY}%`,
-                marginX: `${marginX}%`,
                 color: `${textColors[color]}`,
                 display: 'flex',
                 flexDirection: 'row',
