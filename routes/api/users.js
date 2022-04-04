@@ -4,14 +4,25 @@ const User = require('../../models/userSchema.js');
 const bcrypt = require('bcrypt');
 const passport = require("passport");
 
-// @route POST api/users/profile
-// @desc Get user data based on email
-router.post("/profile", (req, res, next) => {
-    // Get email from req.body
-    // User.findOne( email )
-    // Return user data
-});
+// @route Post api/users/account
+// @desc Post user data based on email
+router.post('/account', async (req, res) => { // not function yet
 
+    const userEmailFilter = { email: req.session.user.email };
+
+    try {
+        const user = await User.findOne(userEmailFilter)
+        if (!user) {
+            error.msg = `User does not exist.`;
+            res.status(404).json(error);
+            return;
+        }
+        return User;
+
+    } catch(getError) {
+        console.log(getError);
+    }
+});
 
 // @route POST api/users/login
 // @desc Login user and verify using passport

@@ -5,11 +5,6 @@ import { Dashboard } from '../Dashboard/Dashboard';
 
 const Account = () => (
   <>
-    {/* <Head>
-      <title>
-        Account | Material Kit
-      </title>
-    </Head> */}
     <Box
       component="main"
       sx={{
