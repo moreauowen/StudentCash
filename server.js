@@ -11,6 +11,7 @@ const mongoose = require('mongoose');
 const MongoStore = require("connect-mongo");
 
 const users = require('./routes/api/users');
+const expenses = require('./routes/api/expenses');
 const app = express();
 
 console.log('----- [SERVER] -----');
@@ -68,6 +69,7 @@ require('./config/passport')(passport);
 
 // Routes Configuration
 app.use('/api/users', users);
+app.use('/api/expenses', expenses);
 
 // Check if application is in production
 if (process.env.NODE_ENV === 'production') {
