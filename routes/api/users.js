@@ -2,76 +2,41 @@ const express = require('express');
 const router = express.Router();
 const User = require('../../models/userSchema.js');
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+const passport = require("passport");
+
+// @route POST api/users/profile
+// @desc Get user data based on email
+router.post("/profile", (req, res, next) => {
+    // Get email from req.body
+    // User.findOne( email )
+    // Return user data
+});
+
 
 // @route POST api/users/login
-// @desc Login user and return JWT token
-router.post('/login', (req, res) => {
-
-    // Form validation to ensure email and password are entered
-    // const { errors, isValid } = validateLoginInput(req.body);
-    // if (!isValid) {
-    //     return res.status(400).json(errors);
-    // }
-
-    // Define filter for querying database
-    const userFilter = { email: req.body.email};
-    const password = req.body.password;
-
-    let error = {};
-
-    User.findOne(userFilter).then(user => {
-        if (!user) {
-            error.msg = `Email not found`;
-            res.status(404).json(error);
-            return;
+// @desc Login user and verify using passport
+router.post("/login", (req, res, next) => {
+    passport.authenticate("local", (err, user) => {
+        if (err) res.status(404).json({message: err, valid: false});
+        if (!user) res.status(404).json({message: "Please check email and password and try again.", valid: false});
+        else {
+            req.login(user, (err) => {
+                if (err) res.status(404).json({message: err, valid: false})
+                res.status(200).json({ message: "Successfully logged in.", valid: true });
+            });
         }
-
-        // Check password
-        bcrypt.compare(password, user.password).then(isMatch => {
-            if (isMatch) {
-                // Create JWT Payload
-                const payload = {
-                    id: user.id,
-                    username: user.username
-                };
-
-                // Sign token
-                jwt.sign(payload,
-                    'secret',
-                    { expiresIn: 31556926 },
-                    (err, token) => {
-                        res.json({
-                            success: true,
-                            token: 'Bearer ' + token
-                        });
-                    }
-                );
-                
-            } else {
-                error.msg = `Password incorrect`;
-                res.status(400).json(error);
-                return;
-            }
-        });
-    });
+    })(req, res, next);
 });
+
 
 // @route POST api/users/register
 // @desc Register user
 router.post('/register', async (req, res) => {
 
-    // Form validation to ensure no fields are empty and that passwords match
-    // const { errors, isValid } = validateRegisterInput(req.body);
-    // if (!isValid) {
-    //     return res.status(400).json(errors);
-    // }
-
     // Define filters to query database
     const userEmailFilter = { email: req.body.email };
 
     let error = {};
-    
     try {
         const user = await User.findOne(userEmailFilter);
         if (user) {
@@ -112,4 +77,3 @@ router.post('/register', async (req, res) => {
 });
 
 module.exports = router;
-

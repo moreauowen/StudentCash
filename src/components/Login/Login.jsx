@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
+  Alert,
   Box,
   Button,
   Checkbox,
   FormControlLabel,
   Grid,
-  Paper,
   TextField,
   Typography,
 } from "@mui/material";
@@ -13,11 +13,13 @@ import axios from 'axios';
 import Logo from '../Logo/Logo';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { isValidEmail } from '../../util';
 
 const LOGIN_ENDPOINT = 'http://localhost:5001/api/users/login';
 
 const Login = () => {
 
+  const [formError, setFormError] = useState('');
   const navigate = useNavigate()
 
   const handleLoginOnClick = e => {
@@ -25,6 +27,13 @@ const Login = () => {
     const data = new FormData(e.currentTarget);
     const emailField = data.get("Email");
     const passwordField = data.get("Password");
+
+    // Form validation
+    if (!isValidEmail(emailField)) {
+      setFormError('Please enter a valid email.');
+      return;
+    }
+
     const loginData = {
       email: emailField, 
       password: passwordField,
@@ -34,11 +43,12 @@ const Login = () => {
     axios.post(LOGIN_ENDPOINT, loginData)
       .then(res => {
         console.log(res);
-        navigate('/dash', {replace: true})
+        if (res.data.valid) navigate('/dash', {replace: true})
+        else setFormError(res.message)
       })
       .catch(err => {
         console.log(err.response);
-        alert(err.response.data.msg);
+        setFormError(err.response.data.message);
       });
 
     console.log('done logging in');
@@ -79,6 +89,11 @@ const Login = () => {
               component="form"
               onSubmit={handleLoginOnClick}
             >
+              { formError ?
+                <Alert severity='error'>{formError}</Alert>
+                :
+                null
+              }
               <Typography
                 variant='h6'
                 fontWeight={500}
@@ -94,6 +109,8 @@ const Login = () => {
                 autoComplete='email'
                 label='Email'
                 margin='dense'
+                type='email'
+                required
                 fullWidth
               />
               <TextField
@@ -103,6 +120,7 @@ const Login = () => {
                 label='Password'
                 type='password'
                 fullWidth
+                required
               />
               <FormControlLabel
                 label='Remember Me'

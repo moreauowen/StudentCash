@@ -18,7 +18,7 @@ import MonthlyIncomeContainer from "./MonthlyIncomeContainer";
 //test purposes
 import generateFakeAccount from "../../generateFakeAccount.tsx";
 
-const Dashboard = () => {
+export const Dashboard = () => {
   const sidebarWidth = 300;
 
   const [currentUser, setCurrentUser] = useState({});
@@ -148,5 +148,3 @@ const Dashboard = () => {
     </Box>
   );
 };
-
-export default Dashboard;

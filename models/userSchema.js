@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const expenseSchema = ("./expenses");
 
 const userSchema = new Schema(
   {
@@ -11,9 +12,8 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    // BELOW WE WILL IMPLEMENT IN A DIFFERENT SPRINT
     // income: [incomeSchema],
-    // expenses: [expenseSchema],
+    expenses: [expenseSchema],
   },
   {
     timestamps: true,

@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import {
+  Alert,
   Typography,
   Box,
   Container,
@@ -11,18 +12,31 @@ import {
 } from "@mui/material";
 import { Link } from 'react-router-dom';
 import Logo from "../Logo/Logo";
-  //TODO:
-  //Mobile layout needs to be messed around with
+import { isValidEmail } from '../../util';
+
+//TODO:
+//Mobile layout needs to be messed around with
 
 const REGISTER_ENDPOINT = 'http://localhost:5001/api/users/register';
 
 const Register = () => {
+
+  const [formSuccess, setFormSuccess] = useState('');
+  const [formError, setFormError] = useState('');
 
   const handleRegisterOnClick = e => {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
     const emailField = data.get("Email");
     const passwordField = data.get("Password");
+
+    // Form validation
+    if (!isValidEmail(emailField)) {
+      setFormError('Please enter a valid email.');
+      setFormSuccess('');
+      return;
+    }
+
     const registerData = {
       email: emailField, 
       password: passwordField,
@@ -32,13 +46,15 @@ const Register = () => {
     axios.post(REGISTER_ENDPOINT, registerData)
       .then(res => {
         console.log(res);
-        alert("Success, please try to login with the credentials.");
+        setFormSuccess("Success, please try to login with the credentials.");
+        setFormError('');
       })
       .catch(err => {
         console.log(err.repsonse);
-        alert(err.response.data.msg);
+        setFormError(err.response.data.msg);
+        setFormSuccess('');
       });
-  <Link to='/login' />
+ 
     console.log('done registering in');
   };
 
@@ -64,6 +80,16 @@ const Register = () => {
       >
         <Box component="form" onSubmit={handleRegisterOnClick}>
           <Grid container spacing={2}>
+            { formSuccess ?
+              <Alert severity='success'>{formSuccess}</Alert>
+              :
+              null
+            }
+            { formError ?
+              <Alert severity='error'>{formError}</Alert>
+              :
+              null
+            }
             <Grid item xs={12}>
               <Typography variant="h6">Register</Typography>
             </Grid>
