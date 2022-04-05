@@ -6,11 +6,14 @@ import {
   Typography,
   Drawer,
   Container,
+  Button
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Doughnut } from "react-chartjs-2";
 import DefaultChart from "../Charts/DefaultChart";
 import DashboardAccounts from "../DashboardAccounts/DashboardAccounts";
+import RecurringChargeContainer from "../Dashboard/RecurringChargesContainer";
+import MonthlyIncomeContainer from "./MonthlyIncomeContainer";
 
 //test purposes
 import generateFakeAccount from "../../generateFakeAccount.tsx";
@@ -21,6 +24,7 @@ const Dashboard = () => {
   const [currentUser, setCurrentUser] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [chartData, setChartData] = useState({});
+  const [chartHeight, setChartHeight] = useState(1000);
 
   useEffect(() => {
     //replace with the actual user account
@@ -82,7 +86,7 @@ const Dashboard = () => {
                 <Typography variant="h6" fontWeight="400">
                   14-Day Account Balance
                 </Typography>
-                <DefaultChart chartHeight={4000} data={chartData} />
+                <DefaultChart chartHeight={chartHeight} data={chartData} />
               </CardContent>
             </Card>
           </Grid>
@@ -107,10 +111,11 @@ const Dashboard = () => {
               </CardContent>
             </Card>
           </Grid>
-        </Grid>
-        <Grid container>
-          <Grid item xs={12} padding={2}>
-            recurring
+          <Grid item xs={12} md={4}>
+            <MonthlyIncomeContainer monthlyIncome={currentUser.monthlyIncome} />
+          </Grid>
+          <Grid item xs={12} md={8}>
+            <RecurringChargeContainer charges={currentUser.recurringCharges} />
           </Grid>
         </Grid>
       </Grid>
@@ -126,13 +131,17 @@ const Dashboard = () => {
         }}
       >
         <Container>
-          {currentUser.accounts ? (
+          {currentUser.accounts.length > 0 ? (
             <DashboardAccounts
               accounts={currentUser.accounts}
               setChartData={setChartData}
+              setChartHeight={setChartHeight}
             />
           ) : (
-            "poo"
+            <Box>
+              <Typography variant="subtitle1" paddingY={2}>You don't have any accounts.</Typography>
+              <Button fullWidth variant="contained">Click here to add one</Button>
+            </Box>
           )}
         </Container>
       </Drawer>

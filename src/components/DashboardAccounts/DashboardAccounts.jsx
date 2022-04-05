@@ -11,13 +11,15 @@ import {
 import generateTwoWeekSummary from "../../helperFunctions";
 import DashboardAccountTransaction from "./DashboardAccountTransaction";
 
-const DashboardAccounts = ({ accounts, setChartData }) => {
+const DashboardAccounts = ({ accounts, setChartData, setChartHeight }) => {
   const [selectedAccount, setSelectedAccount] = useState(0);
   const [transactionData, setTransactionData] = useState([]);
 
   const updateViewedAccount = (accountNumber) => {
     const currAccountTransactions = accounts[accountNumber].transactions;
-    setChartData(generateTwoWeekSummary(currAccountTransactions));
+    const newChartData = generateTwoWeekSummary(currAccountTransactions)
+    setChartData(newChartData[0]);
+    setChartHeight(newChartData[1])
     setTransactionData(currAccountTransactions);
   };
 

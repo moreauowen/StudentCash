@@ -35,6 +35,17 @@ interface Transaction {
   transactionDate: Date;
 }
 
+interface RecurringCharge {
+  companyName: string,
+  chargeAmount: number,
+  recurringDate: string;
+}
+
+interface IncomeSource {
+  source: string,
+  amount: number
+}
+
 const generateNewTransaction = (): Transaction => {
   return {
     transactionName: faker.company.companyName(),
@@ -43,13 +54,44 @@ const generateNewTransaction = (): Transaction => {
   };
 };
 
+const generateNewRecurringCharge = (): RecurringCharge => {
+  return {
+    companyName: faker.company.companyName(),
+    chargeAmount: parseInt(faker.finance.amount(5, 15)),
+    recurringDate: "Monthly"
+  }
+}
+
+const generateNewIncomeSource = (): IncomeSource => {
+  return {
+    source: faker.company.companyName(),
+    amount: Math.ceil(parseInt(faker.finance.amount(300, 800)) / 10) * 10
+  }
+}
+
 const generateAccountTransactions = (numberOfTimes: number): Array<Transaction> => {
-  const x: Array<Transaction> = [];
+  let x: Array<Transaction> = [];
   for (let i = 0; i < numberOfTimes; i++) {
     x.push(generateNewTransaction());
   }
   return x;
 };
+
+const generateRecurringCharges = (numberOfTimes: number): Array<RecurringCharge> => {
+  let x: Array<RecurringCharge> = [];
+  for (let i = 0; i < numberOfTimes; i++) {
+    x.push(generateNewRecurringCharge())
+  }
+  return x
+}
+
+const generateMonthlyIncome = (numberOfTimes: number): Array<IncomeSource> => {
+  let x: Array<IncomeSource> = [];
+  for (let i = 0; i < numberOfTimes; i++) {
+    x.push(generateNewIncomeSource())
+  }
+  return x
+}
 
 const newFakeUserAccount = () => {
   return {
@@ -75,7 +117,47 @@ const newFakeUserAccount = () => {
         ),
       },
     ],
+    recurringCharges: generateRecurringCharges(Math.floor(Math.random() * 4)),
+    monthlyIncome: generateMonthlyIncome(Math.ceil(Math.random() * 2))
   };
 };
 
 export default newFakeUserAccount;
+
+// user schema
+// user: {
+//   firstName: ---
+//   lastname: ---
+//   accounts: [...]
+//   recurringCharges: [...]
+//   monthlyIncome: [...]
+// }
+
+// account schema
+// account:  {
+//   institution: ---
+//   lastFour: ---
+//   dateAdded: ---
+//   currentBalance: ---
+//   transactions: []
+// }
+
+// transaction schema
+// transaction: {
+//   transactionName: ---
+//   transactionAmount: ---
+//   transactionDate: ---
+// }
+
+// recurring charge schema
+// recurringcharge {
+//   companyName: ---
+//   chargeAmount: ---
+//   recurringDate: ---
+// }
+
+// income source schema
+// incomesource {
+//   source: ---
+//   amount: ---
+// }
