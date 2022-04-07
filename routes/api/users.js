@@ -4,14 +4,6 @@ const User = require("../../models/userSchema.js");
 const bcrypt = require("bcrypt");
 const passport = require("passport");
 
-// @route POST api/users/profile
-// @desc Get user data based on email
-router.post("/profile", (req, res, next) => {
-  // Get email from req.body
-  // User.findOne( email )
-  // Return user data
-});
-
 // @route POST api/users/login
 // @desc Login user and verify using passport
 router.post("/login", (req, res, next) => {
