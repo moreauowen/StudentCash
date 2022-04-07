@@ -1,34 +1,5 @@
 import faker from "@faker-js/faker";
 
-/*
-   Acc schema ideal
-    {
-      name: "xxx",
-      accounts: {
-        "acc_name": {
-          dateAdded: datestring,
-          currentBalance: number,
-          transactions: [{
-            transactionName: "yyy",
-            transactionAmount: number,
-            transactionDate: datestring,
-          },
-          {
-            transactionName: "zzz",
-            transactionAmount: number,
-            transactionDate: datestring,
-          },
-          {
-            transactionName: "xyxy",
-            transactionAmount: number,
-            transactionDate: datestring,
-          }
-          ]
-        }
-      }
-    }
-    */
-
 interface Transaction {
   transactionName: string;
   transactionAmount: number;
