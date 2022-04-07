@@ -4,14 +4,6 @@ const User = require("../../models/userSchema.js");
 const bcrypt = require("bcrypt");
 const passport = require("passport");
 
-// @route POST api/users/profile
-// @desc Get user data based on email
-router.post("/profile", (req, res, next) => {
-  // Get email from req.body
-  // User.findOne( email )
-  // Return user data
-});
-
 // @route POST api/users/login
 // @desc Login user and verify using passport
 router.post("/login", (req, res, next) => {
@@ -82,44 +74,50 @@ router.post("/register", async (req, res) => {
 // @route POST api/users/reset
 // @desc Register user
 router.post("/reset", async (req, res) => {
-  User.findOne(
-    {
-      email: request.session.user.email,
-    },
-    function (err, doc) {
-      if (!doc) {
-        response.status(400).json({
-          message: "Email does not exist.",
-        });
-      } else {
-        bcrypt
-          .compare(request.body.currentPassword, doc.password)
-          .then((res) => {
-            if (res === true) {
+  if (req.user) {
+    User.findOne(
+      {
+        email: req.user.email,
+      },
+      function (err, doc) {
+        if (!doc) {
+          res.status(400).json({
+            msg: "Email does not exist.",
+          });
+        } else {
+          bcrypt.compare(req.body.currentPassword, doc.password).then((result) => {
+            if (result === true) {
               bcrypt
-                .hash(request.body.newPassword, 10)
+                .hash(req.body.newPassword, 10)
                 .then((hash) => {
                   doc.password = hash;
                   doc.save();
+                  res.status(200).json({
+                    msg: "Password reset successfully.",
+                    valid: true,
+                  });
                 })
                 .catch((err) => {
-                  response.status(400).json({
-                    message: "Error resetting password.",
+                  res.status(400).json({
+                    msg: "Error resetting password.",
+                    valid: false,
                   });
                 });
             } else {
-              response.status(400).json({
-                message: "Invalid password.",
+              res.status(400).json({
+                msg: "Current password is invalid.",
+                valid: false,
               });
             }
-          });
+          })
+        }
       }
-    }
-  ).catch((err) => {
-    response.status(400).json({
-      message: err,
+    )
+  } else {
+    res.status(400).json({
+      msg: "Please login before doing this.",
     });
-  });
+  }
 });
 
 module.exports = router;
