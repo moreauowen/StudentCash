@@ -1,16 +1,16 @@
+import axios from 'axios';
 import {
     Avatar,
     Box,
-    Button,
     Card,
     CardActions,
     CardContent,
-    Divider,
     Typography
 } from '@mui/material';
 
+axios.get()
+
 const user = {
-    avatar: '',
     city: 'Boston',
     name: 'Duoduo Xu',
     school: 'Wentworth Institute of Technology'
@@ -27,7 +27,6 @@ export const User = (props) => (
             }}
         >
             <Avatar
-            src={user.avatar}
             sx={{
                 height: 64,
                 mb: 2,
@@ -55,15 +54,7 @@ export const User = (props) => (
             </Typography>
         </Box>
         </CardContent>
-        <Divider />
         <CardActions>
-        <Button
-            color="primary"
-            fullWidth
-            variant="text"
-        >
-            Upload picture
-        </Button>
         </CardActions>
     </Card>
 );

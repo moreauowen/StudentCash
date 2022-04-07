@@ -1,5 +1,5 @@
-import React from "react";
-// import axios from 'axios';
+import React from 'react';
+import axios from 'axios';
 import {
   Grid,
   TextField,
@@ -11,41 +11,9 @@ import {
   CardActions,
 } from "@mui/material";
 
-// const USERPROFILE_ENDPOINT = 'http://localhost:5001/api/users/profile'; // set a token
+const USERPROFILE_ENDPOINT = 'http://localhost:5001/api/users/account';
 
 export const Profile = () => {
-  // const handleProfileOnClick = e => {
-  //     e.preventDefault();
-  //     const data = new FormData(e.currentTarget);
-  //     const firstNameField = data.get("FirstName");
-  //     const lastNameField = data.get("LastName");
-  //     const emailField = data.get("Email");
-  //     const phoneNumField = data.get("PhoneNum");
-  //     const birthYearField = data.get("BirthYear");
-  //     const birthDateField = data.get("BirthDate");
-  //     const userProfileData = {
-  //         firstName: firstNameField,
-  //         lastName: lastNameField,
-  //         email: emailField,
-  //         phoneNum: phoneNumField,
-  //         birthYear: birthYearField,
-  //         birthDate: birthDateField
-  //     };
-
-  //     // Post updated profile and wait for response
-  //     axios.post(USERPROFILE_ENDPOINT, userProfileData)
-  //         .then(res => {
-  //             console.log(res);
-  //             alert("Success, please refresh the page to see update.");
-  //         })
-  //         .catch(err => {
-  //             console.log(err.repsonse);
-  //             alert(err.response.data.msg);
-  //         });
-
-  //     console.log("done update user profile");
-  // };
-
   return (
     <form
       autoComplete="off"
