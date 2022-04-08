@@ -1,10 +1,9 @@
 import { Box, Container, Grid, Typography } from '@mui/material';
 import { User } from './User';
 import { Profile } from './Profile';
-import { Dashboard } from '../Dashboard/Dashboard';
+import Reset from './Reset';
 
 const Account = () => (
-  <>
     <Box
       component="main"
       sx={{
@@ -12,7 +11,7 @@ const Account = () => (
         py: 8
       }}
     >
-      <Container maxWidth="lg">
+      <Container maxWidth="xl">
         <Typography
           sx={{ mb: 3 }}
           variant="h4"
@@ -25,30 +24,27 @@ const Account = () => (
         >
           <Grid
             item
-            lg={4}
-            md={6}
             xs={12}
           >
             <User />
           </Grid>
           <Grid
             item
-            lg={8}
-            md={6}
+            xl={6}
             xs={12}
           >
             <Profile />
           </Grid>
+          <Grid
+            item
+            xl={6}
+            xs={12}
+          >
+            <Reset />
+          </Grid>
         </Grid>
       </Container>
     </Box>
-  </>
-);
-
-Account.getLayout = (page) => (
-  <Dashboard>
-    {page}
-  </Dashboard>
 );
 
 export default Account; 

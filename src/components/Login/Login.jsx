@@ -40,15 +40,20 @@ const Login = () => {
     };
 
     // Post login and wait for response
-    axios.post(LOGIN_ENDPOINT, loginData)
+    axios({
+      method: "POST",
+      data: loginData,
+      withCredentials: true,
+      url: LOGIN_ENDPOINT
+    })
       .then(res => {
         console.log(res);
         if (res.data.valid) navigate('/dash', {replace: true})
         else setFormError(res.message)
       })
       .catch(err => {
-        console.log(err.response);
-        setFormError(err.response.data.message);
+        console.log(err);
+        setFormError(err.response);
       });
 
     console.log('done logging in');
