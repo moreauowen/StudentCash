@@ -32,9 +32,14 @@ ReactDOM.render(
               </RequireAuth>
             }
           >
-            <Route index element={<RequireAuth>
-              <Dashboard />
-              </RequireAuth>} />
+            <Route
+              index
+              element={
+                <RequireAuth>
+                  <Dashboard />
+                </RequireAuth>
+              }
+            />
           </Route>
         </Routes>
       </BrowserRouter>
