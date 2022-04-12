@@ -48,7 +48,7 @@ const Login = () => {
     })
       .then(res => {
         console.log(res);
-        if (res.data.valid) navigate('/dash', {replace: true})
+        if (res.data.valid) navigate('/dashboard', {replace: true})
         else setFormError(res.message)
       })
       .catch(err => {

@@ -23,7 +23,7 @@ const Dashboard = () => {
     {
       title: "Dashboard",
       icon: <MdSpaceDashboard color="white" />,
-      path: "/dash",
+      path: "/dashboard",
     },
     {
       title: "Budget",
@@ -31,7 +31,7 @@ const Dashboard = () => {
       path: "/budget",
     },
     {
-      title: "Reports",
+      title: "Reports (coming soon)",
       icon: <IoDocumentsSharp color="white" />,
       path: "/reports",
     },

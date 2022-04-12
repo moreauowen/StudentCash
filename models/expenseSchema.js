@@ -12,7 +12,7 @@ const expenseSchema = new Schema(
       required: true,
     },
     value: {
-      type: Double,
+      type: Number,
       required: true,
     },
   },
