@@ -1,19 +1,22 @@
-// import { useState } from 'react';
-// import { Navigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Navigate } from 'react-router-dom';
 
-// export default function RequireAuth(props) {
+const SESSION_ENDPOINT = 'http://localhost:5001/api/users/session';
 
-//     const [isAuth, setIsAuth] = useState(false);
+export default function RequireAuth({children}) {
 
-    // useEffect(() => {
-    //   axios.get('/is-auth')
-    //   .then((res) => {
-    //     setIsAuth((res.status == 200))
-    //     })
-    // }, [])
+    const [isAuth, setIsAuth] = useState(false);
+
+    useEffect(() => {
+      axios.post(SESSION_ENDPOINT)
+      .then((res) => {
+        setIsAuth((res.status === 200))
+        })
+    }, [])
     
-//     return (isAuth ? 
-//       (props.children) 
-//       :
-//       (<Navigate to="/login" replace />))
-// }
+    return (isAuth ? 
+      children
+      :
+      (<Navigate to="/login" replace />))
+}

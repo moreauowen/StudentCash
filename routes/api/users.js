@@ -120,4 +120,20 @@ router.post("/reset", async (req, res) => {
   }
 });
 
+// @route POST api/users/session
+// @desc Check if a user's session is valid
+router.post("/session", async (req, res) => {
+  if (req.user){
+    res.status(200).json({
+      msg: "Session is valid",
+      valid: true
+    })
+  } else {
+    res.status(400).json({
+      msg: "Session is invalid, please login.",
+      valid: false
+    })
+  }
+})
+
 module.exports = router;
