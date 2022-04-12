@@ -1,7 +1,7 @@
 import { Box, Button, Card, CardContent, Typography, Table, TableHead, TableRow, TableCell, TableBody } from "@mui/material";
 import { AiOutlinePlus } from "react-icons/ai";
 
-const MonthlyIncomeContainer = ({ monthlyIncome }) => {
+const IncomeContainer = ({ income }) => {
   return (
     <Card
       sx={{
@@ -24,22 +24,22 @@ const MonthlyIncomeContainer = ({ monthlyIncome }) => {
           }}
         >
           <Typography variant="h6" fontWeight="400" gutterBottom>
-            Monthly Income
+            Income
           </Typography>
           <Button variant="outlined">
             <AiOutlinePlus />
           </Button>
         </Box>
-        {monthlyIncome.length > 0 ? (
+        {income.length > 0 ? (
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>Company</TableCell>
-                <TableCell align="right">Amount</TableCell>
+                <TableCell>Vendor</TableCell>
+                <TableCell align="right">Value</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-                {monthlyIncome.map(({ source, amount }) => 
+                {income.map(({ source, amount }) => 
                     <TableRow>
                         <TableCell>{source}</TableCell>
                         <TableCell>$ {amount}</TableCell>
@@ -54,7 +54,7 @@ const MonthlyIncomeContainer = ({ monthlyIncome }) => {
               fontStyle: "oblique",
             }}
           >
-            No monthly income
+            No recent income.
           </Typography>
         )}
       </CardContent>
@@ -62,4 +62,4 @@ const MonthlyIncomeContainer = ({ monthlyIncome }) => {
   );
 };
 
-export default MonthlyIncomeContainer;
+export default IncomeContainer;

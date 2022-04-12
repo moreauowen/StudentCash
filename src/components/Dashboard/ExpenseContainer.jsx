@@ -2,7 +2,7 @@ import { Card, CardContent, Box, Typography, Table, TableHead, TableRow, TableCe
 import { AiOutlinePlus } from "react-icons/ai";
 import RecurringChargeItem from "./RecurringChargeItem";
 
-const RecurringChargesContainer = ({ charges }) => {
+const ExpenseContainer = ({ charges }) => {
     return (
         <Card
         sx={{
@@ -25,31 +25,31 @@ const RecurringChargesContainer = ({ charges }) => {
             }}
           >
             <Typography variant="h6" fontWeight="400" gutterBottom>
-              Recurring Charges
+              Expenses
             </Typography>
-            <Button variant="outlined"><AiOutlinePlus /></Button>
+            <Button variant="outlined">
+              {/** TODO - Add functionality to create expense here.*/}
+              <AiOutlinePlus />
+            </Button>
           </Box>
           {charges.length > 0 ? (
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell>Company</TableCell>
+                  <TableCell>Name</TableCell>
                   <TableCell align="right">Cost</TableCell>
-                  <TableCell align="right">Frequency</TableCell>
-                  <TableCell align="right"></TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {charges.map(
                   (
-                    { companyName, chargeAmount, recurringDate },
+                    { companyName, chargeAmount},
                     index
                   ) => (
                     <RecurringChargeItem
                       key={index}
                       companyName={companyName}
                       chargeAmount={chargeAmount}
-                      recurringDate={recurringDate}
                     />
                   )
                 )}
@@ -62,7 +62,7 @@ const RecurringChargesContainer = ({ charges }) => {
                 fontStyle: "oblique",
               }}
             >
-              No recurring charges
+              No recent expenses
             </Typography>
           )}
         </CardContent>
@@ -70,4 +70,4 @@ const RecurringChargesContainer = ({ charges }) => {
     )
 }
 
-export default RecurringChargesContainer;
+export default ExpenseContainer;

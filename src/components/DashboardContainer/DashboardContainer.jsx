@@ -17,7 +17,7 @@ import { Outlet } from "react-router-dom";
 const Dashboard = () => {
   const sidebarWidth = 300;
   const logoSize = (sidebarWidth / 6.4) * 0.8; //I want this gone
-  const dashboardSpacing = 6;
+  // const dashboardSpacing = 6;
 
   const navigationItems = [
     {
@@ -76,12 +76,11 @@ const Dashboard = () => {
       <Box
         sx={{
           marginLeft: `${sidebarWidth}px`,
-          marginRight: `${sidebarWidth*1.5}px`,
           height: "100%",
           bgcolor: "#fafafa",
         }}
       >
-        <Container maxWidth={false}>
+        <Container maxWidth={true}>
             <Outlet />
         </Container>
       </Box>
