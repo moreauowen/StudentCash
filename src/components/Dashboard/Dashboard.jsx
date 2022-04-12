@@ -11,15 +11,15 @@ import {
 import { useEffect, useState } from "react";
 import { Doughnut } from "react-chartjs-2";
 import DefaultChart from "../Charts/DefaultChart";
-import DashboardAccounts from "../DashboardAccounts/DashboardAccounts";
-import RecurringChargeContainer from "../Dashboard/RecurringChargesContainer";
-import MonthlyIncomeContainer from "./MonthlyIncomeContainer";
+// import DashboardAccounts from "../DashboardAccounts/DashboardAccounts";
+import ExpenseContainer from "./ExpenseContainer";
+import IncomeContainer from "./IncomeContainer";
 
 //test purposes
 import generateFakeAccount from "../../generateFakeAccount.tsx";
 
 const Dashboard = () => {
-  const sidebarWidth = 300;
+  // const sidebarWidth = 300;
 
   const [currentUser, setCurrentUser] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -64,7 +64,7 @@ const Dashboard = () => {
     <div>loading...</div>
   ) : (
     <Box>
-      <Grid container>
+      <Grid container xs={12} sm={12} md={12} lg={12} xl={12}>
         <Grid container>
           <Grid item>
             <Typography fontSize="1.4rem" padding={2}>
@@ -73,7 +73,7 @@ const Dashboard = () => {
           </Grid>
         </Grid>
         <Grid container spacing={2}>
-          <Grid item xs={12} md={8}>
+          <Grid item xs={12} md={6}>
             <Card
               sx={{
                 borderRadius: 0,
@@ -90,7 +90,7 @@ const Dashboard = () => {
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={6}>
             <Card
               sx={{
                 borderRadius: 0,
@@ -111,40 +111,14 @@ const Dashboard = () => {
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={12} md={4}>
-            <MonthlyIncomeContainer monthlyIncome={currentUser.monthlyIncome} />
+          <Grid item xs={12} md={6}>
+            <IncomeContainer income={currentUser.monthlyIncome} />
           </Grid>
-          <Grid item xs={12} md={8}>
-            <RecurringChargeContainer charges={currentUser.recurringCharges} />
+          <Grid item xs={12} md={6}>
+            <ExpenseContainer charges={currentUser.recurringCharges} />
           </Grid>
         </Grid>
       </Grid>
-      <Drawer
-        anchor="right"
-        variant="permanent"
-        sx={{
-          "& .MuiDrawer-paper": {
-            backgroundColor: "white",
-            color: "black",
-            width: `${sidebarWidth * 1.5}px`,
-          },
-        }}
-      >
-        <Container>
-          {currentUser.accounts.length > 0 ? (
-            <DashboardAccounts
-              accounts={currentUser.accounts}
-              setChartData={setChartData}
-              setChartHeight={setChartHeight}
-            />
-          ) : (
-            <Box>
-              <Typography variant="subtitle1" paddingY={2}>You don't have any accounts.</Typography>
-              <Button fullWidth variant="contained">Click here to add one</Button>
-            </Box>
-          )}
-        </Container>
-      </Drawer>
     </Box>
   );
 };
