@@ -6,13 +6,14 @@ import Login from "./components/Login/Login";
 import Dashboard from "./components/Dashboard/Dashboard";
 import Register from "./components/Register/Register";
 import DashboardContainer from "./components/DashboardContainer/DashboardContainer";
+import RequireAuth from "./components/RequireAuth/RequireAuth";
 import Homepage from "./components/Homepage/Homepage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 //theming
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import lightTheme from './lightTheme';
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import lightTheme from "./lightTheme";
 
-const theme = (true) ? createTheme(lightTheme) : createTheme(lightTheme);
+const theme = true ? createTheme(lightTheme) : createTheme(lightTheme);
 
 ReactDOM.render(
   <React.StrictMode>
@@ -20,12 +21,21 @@ ReactDOM.render(
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<App />} />
-            <Route index element={<Homepage />} />
-            <Route path="login" element={<Login />} />
-            <Route path="register" element={<Register />} />
-            <Route path="dashboard" element={<DashboardContainer />} >
-              <Route index element={<Dashboard />} />
-            </Route>
+          <Route index element={<Homepage />} />
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
+          <Route
+            path="dashboard"
+            element={
+              <RequireAuth>
+                <DashboardContainer />
+              </RequireAuth>
+            }
+          >
+            <Route index element={<RequireAuth>
+              <Dashboard />
+              </RequireAuth>} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
