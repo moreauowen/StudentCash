@@ -9,6 +9,9 @@ const lightTheme = {
             light: '#fff',
             main: '#fdfdfd',
             dark: '#6fd962',
+        },
+        progress: {
+            main: '#ffffff'
         }
     },
     typography: {
