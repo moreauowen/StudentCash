@@ -136,4 +136,28 @@ router.post("/session", async (req, res) => {
   }
 })
 
+// @route POST api/users/delete
+// @desc Delete a users account
+router.post("/delete", async (req, res) => {
+  if (req.user) {
+    try {
+      User.findByIdAndDelete(req.user._id, function (err, doc) {
+        if (err) res.status(400).json({msg: err});
+        else {
+          req.logout();
+          res.status(200).json({msg: "Account deleted successfully."});
+        }
+      })
+    } catch {
+      res.status(400).json({
+        msg: "Error deleting account, please try again later."
+      });
+    }
+  } else {
+    res.status(400).json({
+      msg: "Please login before doing this."
+    });
+  }
+})
+
 module.exports = router;

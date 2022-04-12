@@ -5,6 +5,7 @@ import App from "./App";
 import Login from "./components/Login/Login";
 import Dashboard from "./components/Dashboard/Dashboard";
 import Register from "./components/Register/Register";
+import Account from "./components/Account/Account";
 import DashboardContainer from "./components/DashboardContainer/DashboardContainer";
 import RequireAuth from "./components/RequireAuth/RequireAuth";
 import Homepage from "./components/Homepage/Homepage";
@@ -23,7 +24,7 @@ ReactDOM.render(
           <Route path="/" element={<App />} />
           <Route index element={<Homepage />} />
           <Route path="login" element={<Login />} />
-          <Route path="register" element={<Register />} />
+          <Route path="register" element={<Register />} />            
           <Route
             path="dashboard"
             element={
@@ -37,6 +38,15 @@ ReactDOM.render(
               element={
                 <RequireAuth>
                   <Dashboard />
+                </RequireAuth>
+              }
+            />
+            <Route
+              index
+              path="/dashboard/account"
+              element={
+                <RequireAuth>
+                  <Account />
                 </RequireAuth>
               }
             />
