@@ -4,7 +4,7 @@
 
 const generateTwoWeekSummary = (transactions) => {
     const dateFormat = {month: "numeric", day:"numeric"}
-    const sortedTransactions = transactions.sort((a, b) => b.transactionDate - a.transactionDate)
+    const sortedTransactions = transactions.sort((a, b) => b.date - a.date)
 
     let dateBalanceArray = {}
     let currentBalance = 1000;
@@ -14,8 +14,8 @@ const generateTwoWeekSummary = (transactions) => {
     let chartHeight = 1000;
 
     while (p1 < 14 || p2 < sortedTransactions.length) {
-      if (sortedTransactions[p2]?.transactionDate.toLocaleDateString('en-us', dateFormat) === currentDate.toLocaleDateString('en-us', dateFormat)) {
-        currentBalance += sortedTransactions[p2].transactionAmount;
+      if (sortedTransactions[p2]?.date.toLocaleDateString('en-us', dateFormat) === currentDate.toLocaleDateString('en-us', dateFormat)) {
+        currentBalance += sortedTransactions[p2].value;
         chartHeight = (chartHeight < currentBalance) ? currentBalance : chartHeight;
         p2++;
       } else {
