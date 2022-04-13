@@ -12,6 +12,7 @@ const MongoStore = require("connect-mongo");
 
 const users = require('./routes/api/users');
 const expenses = require('./routes/api/expenses');
+const incomes = require('./routes/api/incomes');
 const app = express();
 
 console.log("----- [SERVER] -----");
@@ -74,6 +75,7 @@ require("./config/passport")(passport);
 // Routes Configuration
 app.use('/api/users', users);
 app.use('/api/expenses', expenses);
+app.use('/api/incomes', incomes);
 
 // Check if application is in production
 if (process.env.NODE_ENV === "production") {
