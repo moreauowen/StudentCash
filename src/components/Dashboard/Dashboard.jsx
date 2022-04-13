@@ -4,25 +4,23 @@ import {
   Card,
   CardContent,
   Typography,
-  Drawer,
-  Container,
-  Button
 } from "@mui/material";
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { Doughnut } from "react-chartjs-2";
 import DefaultChart from "../Charts/DefaultChart";
-// import DashboardAccounts from "../DashboardAccounts/DashboardAccounts";
 import ExpenseContainer from "./ExpenseContainer";
 import IncomeContainer from "./IncomeContainer";
 
-//test purposes
+// Test purposes
 import generateFakeAccount from "../../generateFakeAccount.tsx";
-import axios from "axios";
+
 
 const Dashboard = () => {
-  // const sidebarWidth = 300;
-
   const [currentUser, setCurrentUser] = useState({});
+  const [incomes, setIncomes] = useState([]);
+  const [expenses, setExpenses] = useState([]);
+  const [balance, setBalance] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [chartData, setChartData] = useState({});
   const [chartHeight, setChartHeight] = useState(1000);
@@ -39,23 +37,44 @@ const Dashboard = () => {
       setIsLoading(false);
     });
 
-    axios({
+    loadIncomeAndExpenses();
+  }, []);
+
+  // Calculates Balance and Updates State
+  const calculateBalance = (incomes, expenses) => {
+    let bal = 0;
+    for (let income of incomes) {
+      bal += income.value;
+    }
+    for (let expense of expenses) {
+      bal -= expense.value;
+    }
+    setBalance(bal);
+  };
+
+  const loadIncomeAndExpenses = async () => {
+    setIsLoading(true);
+
+    // Load income
+    const incResponse = await axios({
       method: "POST",
       url: 'http://localhost:5001/api/users/get-income',
       withCredentials: true,
-    })
-      .then(res => {
-        if (res.data) {
-          alert(`${res.data.length} - ${res.data[0].name} - ${res.data[0].value}`);
-        } else {
-          alert("NONE");
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    });
 
-  }, []);
+
+    // Load expenses
+    const expResponse = await axios({
+      method: "POST",
+      url: 'http://localhost:5001/api/users/get-expenses',
+      withCredentials: true,
+    });
+
+    setIncomes(incResponse.data);
+    setExpenses(expResponse.data);
+    calculateBalance(incResponse.data,expResponse.data);
+    setIsLoading(false);
+  };
 
   const doughnutFillerData = {
     labels: [
@@ -87,6 +106,11 @@ const Dashboard = () => {
           <Grid item>
             <Typography fontSize="1.4rem" padding={2}>
               Welcome, {currentUser.firstName}
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Typography fontSize="1.4rem" padding={2}>
+              Current Balance: ${balance}
             </Typography>
           </Grid>
         </Grid>
@@ -130,10 +154,10 @@ const Dashboard = () => {
             </Card>
           </Grid>
           <Grid item xs={12} md={6}>
-            <IncomeContainer income={currentUser.monthlyIncome} />
+            <IncomeContainer income={incomes} />
           </Grid>
           <Grid item xs={12} md={6}>
-            <ExpenseContainer charges={currentUser.recurringCharges} />
+            <ExpenseContainer charges={expenses} />
           </Grid>
         </Grid>
       </Grid>
