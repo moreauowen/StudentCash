@@ -1,9 +1,9 @@
 import faker from "@faker-js/faker";
 
 interface Transaction {
-  transactionName: string;
-  transactionAmount: number;
-  transactionDate: Date;
+  name: string;
+  value: number;
+  date: Date;
 }
 
 interface RecurringCharge {
@@ -19,9 +19,9 @@ interface IncomeSource {
 
 const generateNewTransaction = (): Transaction => {
   return {
-    transactionName: faker.company.companyName(),
-    transactionAmount: parseInt(faker.finance.amount(10, 500, 2)),
-    transactionDate: faker.date.recent(15),
+    name: faker.company.companyName(),
+    value: parseInt(faker.finance.amount(10, 500, 2)),
+    date: faker.date.recent(15),
   };
 };
 

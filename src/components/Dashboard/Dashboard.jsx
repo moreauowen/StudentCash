@@ -82,7 +82,7 @@ const Dashboard = () => {
     <div>loading...</div>
   ) : (
     <Box>
-      <Grid container xs={12} sm={12} md={12} lg={12} xl={12}>
+      <Grid container>
         <Grid container>
           <Grid item>
             <Typography fontSize="1.4rem" padding={2}>
