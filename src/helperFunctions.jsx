@@ -1,8 +1,10 @@
-
-
-
-
-const generateTwoWeekSummary = (transactions) => {
+/**
+ * This generates a two week summary to use in a chart.
+ * @param {} incomes
+ * @param {} expenses 
+ * @returns chart summary
+ */
+const generateTwoWeekSummary = (incomes, expenses) => {
     const dateFormat = {month: "numeric", day:"numeric"}
     const sortedTransactions = transactions.sort((a, b) => b.date - a.date)
 
