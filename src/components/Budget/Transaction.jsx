@@ -1,9 +1,7 @@
 import { useState } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import PropTypes from 'prop-types';
-// import { format } from 'date-fns';
 import {
-  Avatar,
   Box,
   Card,
   Checkbox,
@@ -13,7 +11,6 @@ import {
   TableHead,
   TablePagination,
   TableRow,
-  Typography
 } from '@mui/material';
 
 export const TransactionsList = ({ transactions, ...rest }) => {

@@ -1,8 +1,8 @@
-import { Box, Container, Grid, Typography } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 import { Toolbar } from './Toolbar';
 import { Dashboard } from '../Dashboard/Dashboard';
-import { TransactionsList } from './customer-list-results';
-import { transactions } from './customers-mock';
+import { TransactionsList } from './Transaction';
+import { transactions } from './MockData';
 
 const Budget = () => (
     <>
@@ -22,7 +22,7 @@ const Budget = () => (
             </Typography>
                 <Toolbar />
                 <Box sx={{ mt: 3 }}>
-                    <transactionsList transactions={transactions} />
+                    <TransactionsList transactions={transactions} />
                 </Box>
             </Container>
         </Box>

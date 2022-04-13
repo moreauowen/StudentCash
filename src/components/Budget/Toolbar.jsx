@@ -5,7 +5,7 @@ import {
   CardContent,
   TextField,
   InputAdornment,
-  SvgIcon, Typography
+  SvgIcon
 } from '@mui/material';
 import { Search as SearchIcon } from '../../icons/search';
 
@@ -31,7 +31,13 @@ export const Toolbar = (props) => (
             color="primary"
             variant="contained"
           >
-            Add Transactions
+            Add Expenses
+          </Button>
+          <Button
+            color="primary"
+            variant="contained"
+          >
+            Add Incomes
           </Button>
       </Box>
     </Box>

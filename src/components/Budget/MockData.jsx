@@ -64,4 +64,11 @@ export const transactions = [
     type: 'expense',
     amount: 97
   },
+  {
+    id: uuid(),
+    name: 'uber',
+    date: '4/12/2022',
+    type: 'expense',
+    amount: 24
+  }
 ];
