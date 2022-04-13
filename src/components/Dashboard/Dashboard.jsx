@@ -17,6 +17,7 @@ import IncomeContainer from "./IncomeContainer";
 
 //test purposes
 import generateFakeAccount from "../../generateFakeAccount.tsx";
+import axios from "axios";
 
 const Dashboard = () => {
   // const sidebarWidth = 300;
@@ -37,6 +38,23 @@ const Dashboard = () => {
       setCurrentUser(newAccount);
       setIsLoading(false);
     });
+
+    axios({
+      method: "POST",
+      url: 'http://localhost:5001/api/users/get-income',
+      withCredentials: true,
+    })
+      .then(res => {
+        if (res.data) {
+          alert(`${res.data.length} - ${res.data[0].name} - ${res.data[0].value}`);
+        } else {
+          alert("NONE");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
   }, []);
 
   const doughnutFillerData = {
