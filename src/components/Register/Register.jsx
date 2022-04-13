@@ -27,6 +27,8 @@ const Register = () => {
   const handleRegisterOnClick = e => {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
+    const firstNameField = data.get("First")
+    const lastNameField = data.get("Last");
     const emailField = data.get("Email");
     const passwordField = data.get("Password");
 
@@ -38,6 +40,8 @@ const Register = () => {
     }
 
     const registerData = {
+      firstName: firstNameField,
+      lastName: lastNameField,
       email: emailField, 
       password: passwordField,
     };
@@ -94,10 +98,10 @@ const Register = () => {
               <Typography variant="h6">Register</Typography>
             </Grid>
             <Grid item xs={12} sm={6}>
-              <TextField fullWidth label="First Name" required />
+              <TextField fullWidth name="First" label="First Name" required />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <TextField fullWidth label="Last Name" required />
+              <TextField fullWidth name="Last" label="Last Name" required />
             </Grid>
             <Grid item xs={12} sm={12}>
               <TextField fullWidth name="Email" label="Email" type="email" required />
