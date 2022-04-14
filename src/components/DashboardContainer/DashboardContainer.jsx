@@ -78,6 +78,7 @@ const Dashboard = () => {
           marginLeft: `${sidebarWidth}px`,
           height: "100%",
           bgcolor: "#fafafa",
+          overflowX: 'hidden'
         }}
       >
         <Container maxWidth={true}>
