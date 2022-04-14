@@ -14,6 +14,7 @@ import {
   InputAdornment,
   Input
 } from "@mui/material";
+import axios from 'axios';
 import { AiOutlinePlus } from "react-icons/ai";
 import RecurringChargeItem from "./RecurringChargeItem";
 import { useState } from "react";
@@ -50,6 +51,28 @@ const ExpenseContainer = ({ charges }) => {
     e.preventDefault()
     setFormError("")
     validateAddExpense()
+
+    const addExpenseData = {
+      expense_name: modalFormContent.name,
+      expense_value: modalFormContent.value,
+    };
+
+    axios({
+      method: "POST",
+      url: 'http://localhost:5001/api/expenses/create',
+      withCredentials: true,
+      data: addExpenseData
+    })
+      .then(res => {
+        if (res.data) {
+          window.location.reload(false);
+        } else {
+          alert('Error when creating expense.')
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   const validateAddExpense = () => {
@@ -72,6 +95,7 @@ const ExpenseContainer = ({ charges }) => {
         borderTop: "solid 4px",
         borderColor: "primary.main",
         height: "100%",
+        marginBottom: "4px",
       }}
     >
       <CardContent
@@ -165,11 +189,11 @@ const ExpenseContainer = ({ charges }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {charges.map(({ companyName, chargeAmount }, index) => (
+              {charges.map(({ name, value }, index) => (
                 <RecurringChargeItem
                   key={index}
-                  companyName={companyName}
-                  chargeAmount={chargeAmount}
+                  companyName={name}
+                  chargeAmount={value}
                 />
               ))}
             </TableBody>
@@ -181,7 +205,7 @@ const ExpenseContainer = ({ charges }) => {
               fontStyle: "oblique",
             }}
           >
-            No recent expenses
+            No recent expenses.
           </Typography>
         )}
       </CardContent>

@@ -1,9 +1,14 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const expenseSchema = ("./expenses");
 
 const userSchema = new Schema(
   {
+    firstName: {
+      type: String
+    },
+    lastName: {
+      type: String
+    },
     email: {
       type: String,
       required: true,
@@ -12,8 +17,8 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    // income: [incomeSchema],
-    expenses: [expenseSchema],
+    incomes: [mongoose.ObjectId],
+    expenses: [mongoose.ObjectId],
   },
   {
     timestamps: true,

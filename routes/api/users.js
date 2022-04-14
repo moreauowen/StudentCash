@@ -1,8 +1,13 @@
 const express = require("express");
 const router = express.Router();
+
 const User = require("../../models/userSchema.js");
+const Income = require("../../models/incomeSchema.js");
+const Expense = require("../../models/expenseSchema.js");
+
 const bcrypt = require("bcrypt");
 const passport = require("passport");
+
 
 // @route POST api/users/login
 // @desc Login user and verify using passport
@@ -25,6 +30,7 @@ router.post("/login", (req, res, next) => {
   })(req, res, next);
 });
 
+
 // @route POST api/users/register
 // @desc Register user
 router.post("/register", async (req, res) => {
@@ -41,6 +47,8 @@ router.post("/register", async (req, res) => {
     }
 
     const newUser = new User({
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
       password: req.body.password,
       email: req.body.email,
     });
@@ -70,6 +78,57 @@ router.post("/register", async (req, res) => {
     res.status(400).json(error);
   }
 });
+
+
+router.post("/get-income", async (req, res) => {
+  const findUserFilter = { email: req.user.email };
+  if (req.user) {
+    User.findOne(findUserFilter, (err, user) => {
+        if (!user) {
+          res.status(400).json({
+            msg: "Email does not exist.",
+          });
+        } else {
+          // Get income from ObjectIds in user.incomes
+          Income.find({ _id: { $in: user.incomes }})
+            .then(results => {
+              res.status(200).json(results);
+            })
+        }
+      }
+    )
+  } else {
+    res.status(400).json({
+      msg: "Please login before doing this.",
+    });
+  }
+});
+
+
+router.post("/get-expenses", async (req, res) => {
+  const findUserFilter = { email: req.user.email };
+  if (req.user) {
+    User.findOne(findUserFilter, (err, user) => {
+        if (!user) {
+          res.status(400).json({
+            msg: "Email does not exist.",
+          });
+        } else {
+          // Get expenses from ObjectIds in user.expenses
+          Expense.find({ _id: { $in: user.expenses }})
+            .then(results => {
+              res.status(200).json(results);
+            })
+        }
+      }
+    )
+  } else {
+    res.status(400).json({
+      msg: "Please login before doing this.",
+    });
+  }
+});
+
 
 // @route POST api/users/reset
 // @desc Register user
