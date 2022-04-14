@@ -11,6 +11,7 @@ import { Doughnut } from "react-chartjs-2";
 import DefaultChart from "../Charts/DefaultChart";
 import ExpenseContainer from "./ExpenseContainer";
 import IncomeContainer from "./IncomeContainer";
+import generateTwoWeekSummary from "../../helperFunctions";
 
 // Test purposes
 import generateFakeAccount from "../../generateFakeAccount.tsx";
@@ -73,6 +74,9 @@ const Dashboard = () => {
     setIncomes(incResponse.data);
     setExpenses(expResponse.data);
     calculateBalance(incResponse.data,expResponse.data);
+    const summ = generateTwoWeekSummary(incResponse.data, expResponse.data);
+    setChartData(summ[0]);
+    setChartHeight(summ[1])
     setIsLoading(false);
   };
 
@@ -115,7 +119,7 @@ const Dashboard = () => {
           </Grid>
         </Grid>
         <Grid container spacing={2}>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={8}>
             <Card
               sx={{
                 borderRadius: 0,
@@ -132,7 +136,7 @@ const Dashboard = () => {
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={4}>
             <Card
               sx={{
                 borderRadius: 0,
