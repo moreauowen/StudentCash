@@ -14,15 +14,15 @@ This student-centered budgeting app helps those in school, particularly low-inco
 	* Delete account
 
 2. Track Budget
-  * Create expense
-  * Create income
-  * View all
+	* Create expense
+	* Create income
+	* View all
 
 3. See Reports
-  * View dashboard
-  * View charts
-  * See transactions
-  * View total balance
+	* View dashboard
+	* View charts
+	* See transactions
+	* View total balance
 
 
 ## Getting Started
@@ -35,6 +35,11 @@ This student-centered budgeting app helps those in school, particularly low-inco
 		> git clone git@github.com:moreauowen/StudentCash.git
 		> cd StudentCash
 		> yarn install
+
+3. Create a .env file in the root directory, and add the following line.
+
+		> DB_URL=<mongodb_url (from Atlas or local)>
+
 		
 ### Run
 
