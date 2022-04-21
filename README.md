@@ -38,7 +38,7 @@ This student-centered budgeting app helps those in school, particularly low-inco
 
 3. Create a .env file in the root directory, and add the following line.
 
-		> DB_URL=<mongodb_url (from Atlas or local)>
+		> DBURI=<mongodb_url (from Atlas or local)>
 
 		
 ### Run
