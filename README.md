@@ -52,7 +52,7 @@ This student-centered budgeting app helps those in school, particularly low-inco
 
 ## Demo video
 
-LINK TO DEMO VIDEO HERE
+https://youtu.be/MsddfGsGPmQ
 
 ## Contributors
 
