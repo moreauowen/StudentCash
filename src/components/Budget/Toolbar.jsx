@@ -7,7 +7,7 @@ import {
   InputAdornment,
   SvgIcon
 } from '@mui/material';
-import { Search as SearchIcon } from '../../icons/search';
+import { Search as SearchIcon } from '../../search';
 
 export const Toolbar = (props) => (
   <Box {...props}>
