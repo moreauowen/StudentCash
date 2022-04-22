@@ -48,7 +48,7 @@ This student-centered budgeting app helps those in school, particularly low-inco
 		> yarn start
 		> node server.js
 		
-2. Open a browser window and navigate to: [http://localhost:3000/login] or [http://localhost:3000/register](http://localhost:3000)
+2. Open a browser window and navigate to: [http://localhost:3000/login](http://localhost:3000/login) or [http://localhost:3000/register](http://localhost:3000/register)
 
 ## Demo video
 
