@@ -6,6 +6,7 @@ import Login from "./components/Login/Login";
 import Dashboard from "./components/Dashboard/Dashboard";
 import Register from "./components/Register/Register";
 import Account from "./components/Account/Account";
+import Budget from "./components/Budget/Budget";
 import DashboardContainer from "./components/DashboardContainer/DashboardContainer";
 import RequireAuth from "./components/RequireAuth/RequireAuth";
 import Homepage from "./components/Homepage/Homepage";
@@ -48,6 +49,13 @@ ReactDOM.render(
                 <RequireAuth>
                   <Account />
                 </RequireAuth>
+              }
+            />
+            <Route
+              index
+              path="/dashboard/budget"
+              element={
+                  <Budget />
               }
             />
           </Route>
