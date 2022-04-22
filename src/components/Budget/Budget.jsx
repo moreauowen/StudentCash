@@ -29,10 +29,4 @@ const Budget = () => (
     </>
 );
 
-Budget.getLayout = (page) => (
-    <Dashboard>
-        {page}
-    </Dashboard>
-);
-
 export default Budget; 
