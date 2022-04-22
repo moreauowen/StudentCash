@@ -13,6 +13,7 @@ import { IoDocumentsSharp } from "react-icons/io5";
 import { FiUser } from "react-icons/fi";
 import Logo from "../Logo/Logo";
 import { Outlet } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 const Dashboard = () => {
   const sidebarWidth = 300;
@@ -28,12 +29,12 @@ const Dashboard = () => {
     {
       title: "Budget",
       icon: <MdAttachMoney color="white" />,
-      path: "/budget",
+      path: "budget",
     },
     {
       title: "Reports (coming soon)",
       icon: <IoDocumentsSharp color="white" />,
-      path: "/reports",
+      path: "",
     },
   ];
 
@@ -59,7 +60,7 @@ const Dashboard = () => {
         <Divider />
         <List>
           {navigationItems.map((item) => (
-            <ListItem button key={item.title}>
+            <ListItem button component={Link} to={item.path}>
               <ListItemIcon color="#ffffff">{item.icon}</ListItemIcon>
               <ListItemText>{item.title}</ListItemText>
             </ListItem>
@@ -67,7 +68,7 @@ const Dashboard = () => {
         </List>
         <Divider />
         <List>
-          <ListItem button key="profile">
+          <ListItem button component={Link} to="/dashboard/account">
             <ListItemIcon><FiUser color="white"/></ListItemIcon>
             <ListItemText>Profile</ListItemText>
           </ListItem>
@@ -90,3 +91,4 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
